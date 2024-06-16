@@ -21,15 +21,17 @@ public class BasiliskCacheService {
     public Mono<Boolean> addKeyValueInCache(String key, String value){
         return redisOperations
                 .opsForValue()
-                .set(key,value)
-                .thenReturn(true);
+                .set(key,value);
     }
     public Flux<KeyValueResBean> fetchAllKeyValuePairs(){
         return fetchKeyValuePair("*");
     }
     public Flux<KeyValueResBean> fetchKeyValuePair(String pattern){
         return redisOperations.keys(pattern)
-                .map(key-> new KeyValueResBean(key, redisOperations.opsForValue().get(key)));
+                .flatMap(key-> redisOperations.opsForValue().get(key)
+                        .map(value->new KeyValueResBean(key,value)))
+                ;
+
     }
 
     public Flux<String> fetchAllValues(){
