@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: Basilisk Green Application
+
+downstream:
+  url: http://localhost:8090
+
+signal:
+  action: forward
+  response: NA
+
+server:
+  port: 8085

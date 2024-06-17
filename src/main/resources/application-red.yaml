@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: Basilisk Red Application
+
+signal:
+  action: respond
+  response: RED
+
+server:
+  port: 8090
